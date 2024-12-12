@@ -5,6 +5,9 @@ import Header from './Header';
 const Carts = () => {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const [orderSuccess, setOrderSuccess] = useState(false);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -34,17 +37,56 @@ const Carts = () => {
         setTotalPrice(price);
     }, [cartItems]);
 
-    const handleQuantityChange = (index, event) => {
-        const newCartItems = [...cartItems];
-        newCartItems[index].quantity = event.target.value;
-        setCartItems(newCartItems);
-    };
-
-   
+    const handleOpenPopup = (item) => {
+        setSelectedItem(item);  // Mettre à jour l'état avec l'élément sélectionné
+        setShowPopup(true);      // Afficher le popup
+      };
+      
+      const handleClosePopup = () => {
+        setShowPopup(false);     // Fermer le popup
+      };
+      const handleSubmitOrder = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const orderData = {
+            name: e.target.name.value,
+            email: e.target.email.value,
+            phone: e.target.phone.value,
+            product: selectedItem.productId.name,
+            quantity: selectedItem.quantity,
+            total: (selectedItem.productId.price * selectedItem.quantity).toFixed(2),
+          };
+    
+          // Envoi de la commande à l'API
+          const response = await fetch('http://localhost:5000/api/orders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+          });
+    
+          if (response.ok) {
+            setOrderSuccess(true); // Afficher le message de succès
+            setTimeout(() => {
+              setShowPopup(false); // Fermer le popup après un certain délai
+              setOrderSuccess(false); // Réinitialiser le message de succès
+            }, 3000);
+          } else {
+            // Gérer l'échec de la commande (par exemple, afficher un message d'erreur)
+            alert("Erreur lors de la soumission de la commande");
+          }
+        } catch (error) {
+          console.error("Erreur lors de la soumission de la commande", error);
+          alert("Erreur de serveur");
+        }
+      };
+      
     return (
         <>
             <Header />
-            <div className="container px-3 my-5 clearfix" style={{ paddingTop: "130px" }}>
+            <div className="container shopping-cart-container px-3 my-5 clearfix" style={{ paddingTop: "130px" }}>
                 <div className="card">
                     <div className="card-header">
                         <h2>Shopping Cart</h2>
@@ -54,95 +96,187 @@ const Carts = () => {
                             <table className="table table-bordered m-0">
                                 <thead>
                                     <tr>
-                                        <th className="text-center py-3 px-4" style={{ minWidth: 400 }}>Product Name &amp; Details</th>
-                                        <th className="text-right py-3 px-4" style={{ width: 100 }}>Price</th>
-                                        <th className="text-center py-3 px-4" style={{ width: 120 }}>Quantity</th>
-                                        <th className="text-right py-3 px-4" style={{ width: 100 }}>Total</th>
-                                        <th className="text-center align-middle py-3 px-0" style={{ width: 40 }}>
+                                    <th className="text-center py-3 px-4" style={{ minWidth: 400 }}>Product Name &amp; Details</th>
+              <th className="text-right py-3 px-4" style={{ width: 100 }}>Price</th>
+              <th className="text-center py-3 px-4" style={{ width: 120 }}>Quantity</th>
+              <th className="text-right py-3 px-4" style={{ width: 100 }}>Total</th>
+              <th className="text-center align-middle py-3 px-0" style={{ width: 40 }}>
                                             <a href="/" className="shop-tooltip float-none text-light" >
                                                 <i className="ino ion-md-trash" />
                                             </a>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {cartItems.length > 0 ? (
-                                        cartItems.map((item, index) => (
-                                            <tr key={index}>
-                                                <td className="p-4">
-                                                    <div className="media align-items-center">
-                                                        <img
-                                                            src={item.productId.images[0]}
-                                                            className="d-block ui-w-40 ui-bordered mr-4"
-                                                            alt={item.name}
-                                                        />
-                                                        <div className="media-body">
-                                                            <a href="/" className="d-block text-dark">{item.productId.name}</a>
-                                                            <small>
-                                                                <span className="text-muted">Description : </span>
-                                                                <span>{item.productId.description}</span>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="text-right font-weight-semibold align-middle p-4">${item.productId.price}</td>
-                                                <td className="align-middle p-4">
-                                                    <input
-                                                        type="number"
-                                                        className="form-control text-center"
-                                                        value={item.quantity}
-                                                        onChange={(event) => handleQuantityChange(index, event)}
-                                                    />
-                                                </td>
-                                                <td className="text-right font-weight-semibold align-middle p-4">${(item.productId.price * item.quantity).toFixed(2)}</td>
-                                                <td className="text-center align-middle px-0">
-                                                    <button class="bin-button">
-                                                    <svg
-                                                        class="bin-top"
-                                                        viewBox="0 0 39 7"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                                                        <line
-                                                        x1="12"
-                                                        y1="1.5"
-                                                        x2="26.0357"
-                                                        y2="1.5"
-                                                        stroke="white"
-                                                        stroke-width="3"
-                                                        ></line>
-                                                    </svg>
-                                                    <svg
-                                                        class="bin-bottom"
-                                                        viewBox="0 0 33 39"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <mask id="path-1-inside-1_8_19" fill="white">
-                                                        <path
-                                                            d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
-                                                        ></path>
-                                                        </mask>
-                                                        <path
-                                                        d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
-                                                        fill="white"
-                                                        mask="url(#path-1-inside-1_8_19)"
-                                                        ></path>
-                                                        <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                                                        <path d="M21 6V29" stroke="white" stroke-width="4"></path>
-                                                    </svg>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="5" className="text-center">Your cart is empty</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
+                                 <tbody>
+                                 {cartItems.length > 0 ? (
+  cartItems.map((item, index) => (
+    <tr key={index}>
+      <td className="p-4">
+        <div className="media align-items-center">
+          <img
+            src={item.productId.images[0]}
+            className="d-block ui-w-40 ui-bordered mr-4"
+            alt={item.name}
+          />
+          <div className="media-body">
+            <a href="/" className="d-block text-dark">{item.productId.name}</a>
+            <small>
+              <span className="text-muted">Description : </span>
+              <span>{item.productId.description}</span>
+            </small>
+          </div>
+        </div>
+      </td>
+      <td className="text-right font-weight-semibold align-middle p-4">${item.productId.price}</td>
+      <td className="align-middle p-4">
+        <input
+          type="number"
+          className="form-control text-center"
+          value={item.quantity}
+          onChange={() => { }}
+        />
+      </td>
+      <td className="text-right font-weight-semibold align-middle p-4">${(item.productId.price * item.quantity).toFixed(2)}</td>
+      <td className="text-center align-middle px-0">
+        <button
+          className="main-button"
+          onClick={() => handleOpenPopup(item)}  // Passer l'élément sélectionné
+        >
+          Passer commande
+        </button>
+      </td>
+    </tr>
+  ))
+) : (
+  <tr>
+    <td colSpan="5" className="text-center">Votre panier est vide</td>
+  </tr>
+)}
+
+                </tbody>
+                {showPopup && selectedItem && (
+  <div className={`popup-overlay ${showPopup ? "show" : ""}`}>
+    <div className={`popup ${showPopup ? "show" : ""}`}>
+      <h3>Passer une commande</h3>
+      <form onSubmit={handleSubmitOrder}>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Nom</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            className="form-control"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="phone" className="form-label">Numéro de téléphone</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            className="form-control"
+            
+            placeholder="Ex: 0123456789"
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="product" className="form-label">Produit</label>
+          <input
+            type="text"
+            id="product"
+            name="product"
+            className="form-control"
+            value={selectedItem.productId.name}  // Nom du produit sélectionné
+            readOnly
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="quantity" className="form-label">Quantité</label>
+          <div className="quantity-input">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                if (selectedItem.quantity > 1) {
+                  setSelectedItem({
+                    ...selectedItem,
+                    quantity: selectedItem.quantity - 1
+                  });
+                }
+              }}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              className="form-control text-center"
+              value={selectedItem.quantity}
+              readOnly
+            />
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => {
+                setSelectedItem({
+                  ...selectedItem,
+                  quantity: selectedItem.quantity + 1
+                });
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="total" className="form-label">Total</label>
+          <input
+            type="text"
+            id="total"
+            name="total"
+            className="form-control"
+            value={(selectedItem.productId.price * selectedItem.quantity).toFixed(2)}  // Calcul du total
+            readOnly
+          />
+        </div>
+
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary" onClick={handleClosePopup}>
+            Fermer
+          </button>
+          <button type="submit" className="main-button">
+            Passer la commande
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+ {orderSuccess && (
+        <div className="success-message">
+          <p>Commande passée avec succès !</p>
+        </div>
+      )}
+
+                 </table>
                         </div>
                         <div className="d-flex flex-wrap justify-content-between align-items-center pb-4">
                             <div className="mt-4">
@@ -157,7 +291,7 @@ const Carts = () => {
                         </div>
                         <div className="float-right">
                             <button type="button" className="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
-                            <button type="button" className="btn btn-lg btn-primary mt-2">Checkout</button>
+                            <button type="button" className="main-button">Checkout</button>
                         </div>
                     </div>
                 </div>

@@ -83,7 +83,7 @@ const About = () => {
                 <div className="section-heading">
                   <h2>Our Amazing Team</h2>
                   <span>
-                    Details to details is what makes Hexashop different from the
+                    Details to details is what makes Bluz different from the
                     other themes.
                   </span>
                 </div>
@@ -311,7 +311,7 @@ const About = () => {
                       <li>
                         Store Location:
                         <br />
-                        <span>Sunny Isles Beach, FL 33160, United States</span>
+                        <span>Ksar Hlel , Jemmel, Tunisie</span>
                       </li>
                       <li>
                         Phone:

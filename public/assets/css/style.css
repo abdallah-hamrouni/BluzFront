@@ -96,6 +96,7 @@ input[type="password"]:focus {
   height: 40px;
   margin: auto;
   margin-top: 29px;
+  margin-left: 150px;
   cursor: pointer;
   display: flex;
   align-items: center;

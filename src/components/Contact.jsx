@@ -1,9 +1,41 @@
-import React from "react";
-
+import React , { useState }from "react";
+import axios from 'axios';
 import Footer from "./Footer";
 import Header from "./Header";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // Ajout de l'état pour le bouton
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true); // Démarre le processus de soumission
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/feedback', formData);
+      setStatusMessage(response.data.message); // Message de succès
+      setFormData({ name: '', email: '', message: '' }); // Reset du formulaire
+    } catch (error) {
+      setStatusMessage('Erreur lors de la soumission, essayez de nouveau.');
+    } finally {
+      setIsSubmitting(false); // Fin de la soumission
+    }
+  };
+
+
   return (
     <div>
       <Header></Header>
@@ -43,55 +75,66 @@ const Contact = () => {
                   other themes.
                 </span>
               </div>
-              <form id="contact" action method="post">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <fieldset>
-                      <input
-                        name="name"
-                        type="text"
-                        id="name"
-                        placeholder="Your name"
-                        required
-                      />
-                    </fieldset>
-                  </div>
-                  <div className="col-lg-6">
-                    <fieldset>
-                      <input
-                        name="email"
-                        type="text"
-                        id="email"
-                        placeholder="Your email"
-                        required
-                      />
-                    </fieldset>
-                  </div>
-                  <div className="col-lg-12">
-                    <fieldset>
-                      <textarea
-                        name="message"
-                        rows={6}
-                        id="message"
-                        placeholder="Your message"
-                        required
-                        defaultValue={""}
-                      />
-                    </fieldset>
-                  </div>
-                  <div className="col-lg-12">
-                    <fieldset>
-                      <button
-                        type="submit"
-                        id="form-submit"
-                        className="main-dark-button"
-                      >
-                        <i className="fa fa-paper-plane" />
-                      </button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
+              <form id="contact" onSubmit={handleSubmit}>
+      <div className="row">
+        <div className="col-lg-6">
+          <fieldset>
+            <input
+              name="name"
+              type="text"
+              id="name"
+              placeholder="Votre nom"
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </fieldset>
+        </div>
+        <div className="col-lg-6">
+          <fieldset>
+            <input
+              name="email"
+              type="email"
+              id="email"
+              placeholder="Votre email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </fieldset>
+        </div>
+        <div className="col-lg-12">
+          <fieldset>
+            <textarea
+              name="message"
+              rows={6}
+              id="message"
+              placeholder="Votre message"
+              required
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </fieldset>
+        </div>
+        <div className="col-lg-12">
+          <fieldset>
+            <button
+              type="submit"
+              id="form-submit"
+              className="main-dark-button"
+              disabled={isSubmitting} // Désactive le bouton pendant la soumission
+            >
+              {isSubmitting ? (
+                <i className="fa fa-spinner fa-spin" /> // Affiche un spinner pendant la soumission
+              ) : (
+                <i className="fa fa-paper-plane" />
+              )}
+            </button>
+          </fieldset>
+        </div>
+      </div>
+      {statusMessage && <div className="status-message">{statusMessage}</div>}
+    </form>
             </div>
           </div>
         </div>

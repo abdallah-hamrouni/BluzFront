@@ -86,6 +86,8 @@ const onError = (res)=>{
 
               <p>Don't have an account? <Link to="/signUp">Sign Up Now</Link></p>
               <button type="submit" className="my-button">Login Now</button>
+              <br>
+              </br>
 
               {/* Google login button */}
               <div className="google-login-wrapper">

@@ -46,7 +46,7 @@ useEffect(() => {
     const fetchMenProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products?category=Woman" 
+          "http://localhost:5000/api/products?category=Women" 
         );
         console.log(response.data);
         setItems(response.data)
@@ -90,8 +90,8 @@ useEffect(() => {
                 <div className="left-content">
                   <div className="thumb">
                     <div className="inner-content">
-                      <h4>We Are Hexashop</h4>
-                      <span>Awesome, clean &amp; creative HTML5 Template</span>
+                      <h4>We Are Bluz</h4>
+                      <span>Awesome &amp; creative clothes</span>
                       <div className="main-border-button">
                         <a href="/">Purchase Now!</a>
                       </div>
@@ -202,7 +202,7 @@ useEffect(() => {
           </div>
         </div>
        
-        <section className="section" id="men">
+        <section className="section" id="women">
   <div className="container">
     <div className="row">
       <div className="col-lg-6">
