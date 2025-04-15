@@ -21,7 +21,7 @@ const Signup = () => {
 
     try {
       // Make a POST request to the API route
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('https://bluz-backend.onrender.com/api/auth/register', {
         name,
         email,
         password,

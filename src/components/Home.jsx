@@ -46,7 +46,7 @@ useEffect(() => {
     const fetchMenProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products?category=Woman" 
+          "https://bluz-backend.onrender.com/api/products?category=women" 
         );
         console.log(response.data);
         setItems(response.data)
@@ -90,8 +90,8 @@ useEffect(() => {
                 <div className="left-content">
                   <div className="thumb">
                     <div className="inner-content">
-                      <h4>We Are Hexashop</h4>
-                      <span>Awesome, clean &amp; creative HTML5 Template</span>
+                      <h4>We Are Bluz</h4>
+                      <span>Awesome &amp; creative clothes</span>
                       <div className="main-border-button">
                         <a href="/">Purchase Now!</a>
                       </div>
@@ -202,79 +202,86 @@ useEffect(() => {
           </div>
         </div>
        
-        <section className="section" id="men">
-  <div className="container">
-    <div className="row">
-      <div className="col-lg-6">
-        <div className="section-heading">
-          <h2>Women's Latest</h2>
-          <span>
-            Details to details is what makes Hexashop different from the other themes.
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div className="container">
-    <div className="row">
-      <div className="col-lg-12">
-        <div className="men-item-carousel relative">
-          {/* Ensure settings is defined for your slider */}
-          <Slider {...settings}>
-            {items.length === 0 ? (
-              <div>Loading...</div> // Display loading message if items are empty
-            ) : (
-              items.map((item) => (
-                <div className="item" key={item._id}> {/* Use _id for unique key */}
-                  <div className="thumb">
-                    <div className="hover-content">
-                      <ul>
-                        <li>
-                          <Link to="/">
-                            <i className="fa fa-eye" />
-                          </Link>
-                        </li>
-                        
-                        <li>
-                         <Link onClick={() => addToCart(item._id, 1)}>
-                             <i className="fa fa-shopping-cart" />
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <Link to={`/singleProduct/${item._id}`}>
-                      <img style={{height:"480px",width:"350px",cursor:"pointer"}}
-                      className="mx-1"
-                      src={item.image} // Use item.image for the image URL
-                      
-                    />
-                    </Link>
-                  </div>
-                  <div className="down-content">
-                    <h4>{item.name}</h4>  {/* Display product name */}
-                    <span>${item.price}</span>  {/* Display price */}
-                   
-                  </div>
+        <section className="section" id="women">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="section-heading">
+                  <h2>Women's Latest</h2>
+                  <span>
+                    Details to details is what makes Hexashop different from the
+                    other themes.
+                  </span>
                 </div>
-              ))
-            )}
-          </Slider>
-
-          {/* Previous and Next Arrows */}
-          <div className="owl-nav">
-            <div className="owl-prev">
-              <span />
-            </div>
-            <div className="owl-next">
-              <span />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="men-item-carousel relative">
+                  {/* Ensure settings is defined for your slider */}
+                  <Slider {...settings}>
+                    {items.length === 0 ? (
+                      <div>Loading...</div> // Display loading message if items are empty
+                    ) : (
+                      items.map((item) => (
+                        <div className="item" key={item._id}>
+                          {" "}
+                          {/* Use _id for unique key */}
+                          <div className="thumb">
+                            <div className="hover-content">
+                              <ul>
+                                <li>
+                                  <Link to="/">
+                                    <i className="fa fa-eye" />
+                                  </Link>
+                                </li>
+
+                                <li>
+                                  <Link onClick={() => addToCart(item._id, 1)}>
+                                    <i className="fa fa-shopping-cart" />
+                                  </Link>
+                                </li>
+                              </ul>
+                            </div>
+                            <Link to={`/singleProduct/${item._id}`}>
+                              <img
+                                alt=""
+                                style={{
+                                  height: "480px",
+                                  width: "350px",
+                                  cursor: "pointer",
+                                }}
+                                className="mx-1"
+                                src={item.colors[0].image} // Use item.image for the image URL
+                              />
+                            </Link>
+                          </div>
+                          <div className="down-content">
+                            <h4>{item.name}</h4> {/* Display product name */}
+                            <span>${item.price}</span> {/* Display price */}
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </Slider>
+
+                  {/* Previous and Next Arrows */}
+                  <div className="owl-nav">
+                    <div className="owl-prev">
+                      <span />
+                    </div>
+                    <div className="owl-next">
+                      <span />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
           <div className="main-border-button">
               <a href="/">Discover More</a>
           </div>

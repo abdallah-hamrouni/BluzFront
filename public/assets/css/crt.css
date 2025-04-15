@@ -1,0 +1,125 @@
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .shopping-cart-container {
+    padding: 15px; /* Réduit le padding */
+    overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+  }
+
+  .table-responsive {
+    width: 100%;  }
+
+  .table thead {
+    display: none; /* Cache l'en-tête du tableau en mode mobile */
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border: none;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    width: 40%;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  .media {
+    display: flex;
+    align-items: center;
+  }
+
+  .media img {
+    max-width: 80px; /* Ajuste la taille des images */
+    height: auto;
+    margin-right: 10px;
+  }
+
+  .media-body {
+    flex: 1;
+  }
+
+  .main-button {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .popup-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .popup {
+    width: 90%;
+    padding: 20px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .float-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .float-right button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table tbody td {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table tbody td::before {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .media img {
+    max-width: 60px; /* Réduit encore plus la taille des images */
+  }
+
+  .main-button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .popup {
+    padding: 15px;
+  }
+
+  .popup h3 {
+    font-size: 18px; /* Réduit la taille du titre */
+  }
+
+  .popup .form-control {
+    font-size: 14px; /* Réduit la taille des champs de formulaire */
+  }
+
+  .popup .btn {
+    font-size: 12px; /* Réduit la taille des boutons */
+  }
+}

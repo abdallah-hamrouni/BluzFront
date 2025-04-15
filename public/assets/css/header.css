@@ -1,0 +1,54 @@
+/* Par défaut, le menu est caché */
+
+  
+  /* Quand le menu est ouvert (active) */
+  .nav.active {
+    display: flex; /* Utilisez flex pour organiser les éléments */
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Quand le menu est caché (hidden) */
+
+  
+  /* Media Query pour les petits écrans */
+  @media (max-width: 767px) {
+    .menu-trigger {
+      display: block !important; /* Affiche le bouton menu */
+    }
+  
+    /* Ajuste l'apparence du menu lorsqu'il est actif */
+    .header-area.header-sticky .nav.active {
+      display: flex; /* Affiche le menu */
+      flex-direction: column; /* Organise les éléments en colonne sur petits écrans */
+      padding: 10px 0;
+    }
+  
+    /* Styles du menu (liens, éléments) */
+    .header-area .main-nav .nav li {
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+    }
+  
+    .header-area .main-nav .nav li a:hover {
+      background: #eee !important;
+      color: #aaa !important;
+    }
+  
+    /* Styles généraux */
+    .header-area .container {
+      padding: 0px;
+    }
+  
+    .header-area .logo {
+      margin-left: 30px;
+    }
+  
+    .header-area.header-sticky .nav {
+      margin-top: 100px !important;
+    }
+  }
+  

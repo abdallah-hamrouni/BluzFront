@@ -11,51 +11,45 @@
 }
 
 .yo {
-  min-width: 850px;
+  width: 100%;
+  max-width: 850px;
   margin: auto;
-  padding-top: 68px;
-  padding-bottom: 48px;
+  padding: 40px 20px;
   background: url("../images/registration-form-2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .yo h3 {
   text-transform: uppercase;
   font-size: 22px;
-  font-family: "Muli-Bold";
-  text-align: justify;
-  margin-bottom: 32px;
-  margin-left: 200px;
-  
-  color: #333;
-  letter-spacing: 2px; }
-
-h3 {
+  font-family: "Muli-Bold", sans-serif;
   text-align: center;
+  margin-bottom: 32px;
   color: #333;
-  font-family: 'Arial', sans-serif;
-  font-size: 24px;
-  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
 .form-group {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .form-wrapper {
-  flex: 1;
-  
+  flex: 1 1 calc(50% - 10px); /* 50% de largeur pour grand écran, ajusté avec gap */
+  min-width: 300px; /* Assure un bon rendu sur mobile */
 }
-.yoyo{
-  margin-left: -250PX;
-}
+
 label {
   display: block;
   margin-bottom: 10px;
   color: #333;
   font-weight: bold;
-  margin-left: 10px;
 }
 
 input[type="text"],
@@ -66,7 +60,7 @@ input[type="password"] {
   border-radius: 5px;
   box-sizing: border-box;
   margin-bottom: 20px;
-  margin-left: 10px;
+  
 }
 
 input[type="text"]:focus,
@@ -74,28 +68,27 @@ input[type="password"]:focus {
   border-color: #4CAF50;
   outline: none;
 }
-
-.checkbox {
-  margin: 20px 0;
-  text-align: left;
+.main-buttonn a {
+  font-size: 13px;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 12px 25px;
+  display: inline-block;
+  font-weight: 500;
+  transition: all .3s;
 }
 
-.checkbox label {
-  font-size: 14px;
-}
-
-.checkbox input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-/* styles.css */
-
+.main-buttonn a:hover {
+  background-color: #000000;
+  color: #ffffff;
+} 
 .my-button {
   border: none;
   width: 152px;
   height: 40px;
   margin: auto;
   margin-top: 29px;
+  margin-left: 150px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -155,8 +148,53 @@ input[type="password"]:focus {
   display: inline-block;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
+  .yo {
+    padding: 20px 15px;
+    max-width: 90%;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
   .form-group {
     flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .my-button {
+    max-width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .yo {
+    padding: 15px 10px;
+    max-width: 95%;
+    background-image: none;  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .my-button {
+    height: 40px;
+    font-size: 12px;
+  }
+  
+}
+
+
+
