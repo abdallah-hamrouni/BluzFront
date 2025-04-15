@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault(); 
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('https://bluz-backend.onrender.com/api/auth/login', {
         email,
         password,
       });
@@ -35,7 +35,7 @@ const Login = () => {
     localStorage.setItem('token', res.credential);
     console.log('ahla bik : ',res.credential );
 
-    const response = await fetch('http://localhost:5000/api/auth/google-login', {
+    const response = await fetch('https://bluz-backend.onrender.com/api/auth/google-login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const onError = (res)=>{
               <h3>Login</h3>
 
               <div className="form-wrapper">
-                <label>Email</label>
+                <label>Email</label>  
                 <input
                   type="text"
                   className="form-control"

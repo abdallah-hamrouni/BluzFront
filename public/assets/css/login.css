@@ -1,0 +1,61 @@
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .wrapper {
+      padding: 0 20px;
+    }
+  
+    .inner {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    h3 {
+      font-size: 20px;
+    }
+  
+    .form-control {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .my-button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .google-login-wrapper button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .wrapper {
+      padding: 0 10px;
+    }
+  
+    .inner {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    h3 {
+      font-size: 18px;
+    }
+  
+    .form-control {
+      padding: 8px;
+      font-size: 12px;
+    }
+  
+    .my-button {
+      padding: 8px;
+      font-size: 12px;
+    }
+  
+    .google-login-wrapper button {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  

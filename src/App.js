@@ -9,6 +9,10 @@ import Contact from "./components/Contact";
 import Carts from "./components/Carts";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import AddProduct from "./components/AdminPage/dashobard/addProduct";
+import AdminPage from "./components/AdminPage/dashobard/AdminPage";
+import AdminOrdersPage from "./components/AdminPage/orders/orders";
+
 
 function App() {
   return (
@@ -24,6 +28,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/singleProduct/:id"  element={<SingleProduct />}/>
+        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/dashboard" element={<AdminPage />} />
+        <Route path="/orders" element={<AdminOrdersPage />} />
+
+
+
       </Routes>
     </BrowserRouter>
   );
